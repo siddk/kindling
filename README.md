@@ -2,102 +2,45 @@
 
 > *Kindling*: A starting point, for lighting a torch.
 
-Template repository for managing machine learning research projects build with [PyTorch](https://pytorch.org/), using
-[Anaconda](https://www.anaconda.com/) for python dependencies and sane quality defaults (Black, Flake, isort).
+Cookiecutter template repository for managing semi-complex machine learning research projects built
+with [PyTorch](https://pytorch.org/), using [Hydra](https://hydra.cc/) for configuration,
+[Anaconda](https://www.anaconda.com/) for python dependencies, and sane quality defaults (`black`, `isort`, `flake8`,
+`precommit`).
 
-This repository is meant for more unstructured projects, with minimal opinions; if looking for something for quickly
-building and iterating on models/evaluation/fine-tuning with a *standard-ish* pipeline, consider
-[Mjolnir](https://github.com/pantheon-616/mjolnir).
-
-Current version of `kindling` supports PyTorch 1.10, with CUDA Toolkit 11.3; feel free to add separate configuration
-files for other hardware requirements.
-
-Template created by Sidd Karamcheti.
+Template created by 🔥 Sidd Karamcheti 🔥; if you find this useful, but are looking for a more opinionated
+[PyTorch-Lightning](https://pytorch-lightning.readthedocs.io/en/latest/) setup, definitely check out the
+[`mjolnir`](https://github.com/siddk/mjolnir) template!
 
 ---
 
-## Contributing
+## Setup
 
-Key section if this is a shared research project (e.g., other collaborators). Usually you should have a detailed set
-of instructions in [`CONTRIBUTING.md`](./CONTRIBUTING.md) - Notably, before committing to the repository, *make
-sure to set up your dev environment and pre-commit install (`pre-commit install`)!*
-
-Here are sample contribution guidelines (high-level):
-
-+ Install and activate the Conda Environment using the `QUICKSTART` instructions below.
-
-+ On installing new dependencies (via `pip` or `conda`), please make sure to update the `environment-<ID>.yaml` files
-via the following command (note that you need to separately create the `environment-cpu.yaml` file by exporting from
-your local development environment!):
-
-  `make serialize-env --arch=<cpu | gpu>`
+The preferred setup is via Github Templates (Green Button above --> "Use as Template") or upon new repository creation
+(borrowed with gratitude from
+[Stefan Buck's instructions](https://stefanbuck.com/blog/repository-templates-meets-github-actions)). Manually edit the
+`cookiecutter.json` file (in browser!), then commit, and let Github Actions take care of the rest.
 
 ---
 
-## Quickstart
-
-*Note: Replace instances of `kindling` and other instructions with instructions specific to your repository!*
-
-Clones `kindling` to the working directory, then walks through dependency setup, mostly leveraging the
-`environment-<arch>.yaml` files.
-
-# Shared Environment (for Clusters w/ Centralized Conda)
-
-*Note: The presence of this subsection depends on your setup. With the way the Stanford NLP Cluster has been set up, and
-the way I've set up the ILIAD Cluster, this section makes it really easy to maintain dependencies across multiple
-users via centralized `conda` environments, but YMMV.*
-
-@Sidd (or central repository maintainer) has already set up the conda environments in Stanford-NLP/ILIAD. The only
-necessary steps for you to take are cloning the repo, activating the appropriate environment, and running
-`pre-commit install` to start developing.
-
-### Local Development - Linux w/ GPU & CUDA 11.0
-
-Note: Assumes that `conda` (Miniconda or Anaconda are both fine) is installed and on your path.
-
-Ensure that you're using the appropriate `environment-<gpu | cpu>.yaml` file --> if PyTorch doesn't build properly for
-your setup, checking the CUDA Toolkit is usually a good place to start. We have `environment-<gpu>.yaml` files for CUDA
-11.3 (and any additional CUDA Toolkit support can be added -- file an issue if necessary).
+You can also load this repository via the default `cookiecutter` tool:
 
 ```bash
-git clone https://github.com/pantheon-616/kindling.git
-cd kindling
-conda env create -f environments/environment-gpu.yaml  # Choose CUDA Kernel based on Hardware - by default used 11.3!
-conda activate kindling
-pre-commit install  # Important!
+# Create a new directory with Cookiecutter templates (prompts you for config values)
+cookiecutter gh:siddk/kindling
+
+# If you've already initialized a github repo with same name, and want to replace contents (run from root of github repo)
+cookiecutter gh:siddk/kindling -o ../ -f
 ```
 
-### Local Development - CPU (Mac OS & Linux)
+## Cookiecutter Repository Structure
 
-Note: Assumes that `conda` (Miniconda or Anaconda are both fine) is installed and on your path. Use the `-cpu`
-environment file.
+High-level overview of repository file-tree (expand on this as you build out your project). Feel free to restructure,
+but this is what the template comes loaded with.
 
-```bash
-git clone https://github.com/pantheon-616/kindling.git
-cd kindling
-conda env create -f environments/environment-cpu.yaml
-conda activate kindling
-pre-commit install  # Important!
-```
-
-## Usage
-
-This repository comes with sane defaults for `black`, `isort`, and `flake8` for formatting and linting. It additionally
-defines a bare-bones Makefile (to be extended for your specific build/run needs) for formatting/checking, and dumping
-updated versions of the dependencies (after installing new modules).
-
-Other repository-specific usage notes should go here (e.g., training models, running a saved model, running a
-visualization, etc.).
-
-## Repository Structure
-
-High-level overview of repository file-tree (expand on this as you build out your project). This is meant to be brief,
-more detailed implementation/architectural notes should go in [`ARCHITECTURE.md`](./ARCHITECTURE.md).
-
-+ `conf` - Quinine Configurations (`.yaml`) for various runs (used in lieu of `argparse` or `typed-argument-parser`)
-+ `environments` - Serialized Conda Environments for both CPU and GPU (CUDA 11.3). Other architectures/CUDA toolkit
++ `conf` - Hydra structured configurations (`.py`) for various runs (used in lieu of `argparse` or `typed-argument-parser`)
++ `environments` - Serialized Conda Environments for both CPU and GPU (CUDA 11.0). Other architectures/CUDA toolkit
 environments can be added here as necessary.
-+ `src/` - Source Code - has all utilities for preprocessing, model definitions, trainers, and other utilities.
++ `src/` - Source Code - has all utilities for preprocessing, Lightning Model definitions, utilities.
     + `preprocessing/` - Preprocessing Code (fill in details for specific project).
     + `models/` - PyTorch Modules (fill in details for specific project).
 + `tests/` - Tests - Please test your code... just, please (more details to come).
@@ -111,47 +54,6 @@ top-level scripts as necessary.
 applications.
 + `CONTRIBUTING.md` - Detailed instructions for contributing to the repository, in furtherance of the default
 instructions above.
-+ `README.md` - You are here!
-+ `LICENSE` - By default, research code is made available under the MIT License. Change as you see fit, but think
++ `README.md` - Details for setting up / loading serialized Conda environments & intro to the repo.
++ `LICENSE` - By default, research code is made available under the GPLv3 License. Change as you see fit, but think
 deeply about why!
-
----
-
-## Start-Up (from Scratch)
-
-Use these commands if you're starting a repository from scratch (this shouldn't be necessary for your collaborators
-, since you'll be setting things up, but I like to keep this in the README in case things break in the future).
-Generally, if you're just trying to run/use this code, look at the Quickstart section above.
-
-### GPU & Cluster Environments (CUDA 11.3)
-
-```bash
-conda create --name kindling python=3.8
-conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch   # CUDA=11.0 on most of Cluster!
-conda install ipython jupyter
-
-pip install black flake8 isort matplotlib pre-commit quinine wandb
-
-# Install other dependencies via pip below -- conda dependencies should be added above (always conda before pip!)
-...
-```
-
-### CPU Environments (Usually for Local Development -- Geared for Mac OS & Linux)
-
-Similar to the above, but installs the CPU-only versions of Torch and similar dependencies.
-
-```bash
-conda create --name kindling python=3.8
-conda install pytorch torchvision torchaudio -c pytorch
-conda install ipython
-
-pip install black flake8 isort matplotlib pre-commit quinine wandb
-
-# Install other dependencies via pip below -- conda dependencies should be added above (always conda before pip!)
-...
-```
-
-### Containerized Setup
-
-Support for running `kindling` inside of a Docker or Singularity container is TBD. If this support is urgently required,
-please file an issue.

@@ -1,0 +1,7 @@
+{
+  "repo_name": "kindling",
+  "repo_link": "https://github.com/siddk/kindling",
+  "conda_env": "kindling",
+  "project": "Kindling",
+  "project_description": "Template repository for quickly spinning up semi-complex PyTorch research projects"
+}

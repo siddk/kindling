@@ -8,21 +8,21 @@ Run with: `python train.py --config conf/config.yaml`
 """
 from datetime import datetime
 
-from quinine import QuinineArgumentParser
+import hydra
 
-from conf.train_schema import get_train_schema
+from conf import Config
 
 
-def train() -> None:
-    # Parse Quinfig (via Quinine Argparse Binding)
-    print("[*] Kindling :: Fetching the flint =>>>")
-    quinfig = QuinineArgumentParser(schema=get_train_schema()).parse_quinfig()
+@hydra.main(config_path=None, config_name="config")
+def train(cfg: Config) -> None:
+    # Parse Hydra Configuration Dictionary...
+    print("[*] {{cookiecutter.project}} :: Fetching the flint =>>>")
+    run_id, seed = cfg.run_id, cfg.seed
     print('\t=>> "The mind is not a vessel to be filled but a fire to be kindled." (Plutarch)')
 
     # Create Unique Run Name
-    run_id = quinfig.run_id
     if run_id is None:
-        run_id = f"kindling+{datetime.now().strftime('%Y-%m-%d-%H:%M')}"
+        run_id = f"{{cookiecutter.repo_name}}+{datetime.now().strftime('%Y-%m-%d-%H:%M')}"
 
     # Do stuff...
 
