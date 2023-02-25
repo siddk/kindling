@@ -1,6 +1,6 @@
 # {{cookiecutter.project}}
 
-> *{{cookiecutter.project}}*: {{cookiecutter.project_description}}
+> *{{cookiecutter.project}}*: {{cookiecutter.description}}
 
 Package repository for {{cookiecutter.project}}: {{cookiecutter.tagline}}. Built with [PyTorch](https://pytorch.org/),
 using sane quality defaults (`black`, `ruff`, `pre-commit`).
