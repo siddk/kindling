@@ -18,7 +18,7 @@ jobs:
           # run this action if this file is modified in the origin template repository.
           #
           # Using the GitHub rest API allows us to identify if the current repository
-        # is a template repository or not.
+          # is a template repository or not.
         run: |
           curl --silent -X GET \
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
@@ -49,7 +49,7 @@ jobs:
           # --no-input      Do not prompt for parameters and only use
           #                 cookiecutter.json file content
           #
-        # --output-dir    Where to output the generated project dir into
+          # --output-dir    Where to output the generated project dir into
         run: cookiecutter . --no-input --output-dir ./cookiecutter-temp
 
       - name: Prepare root directory
@@ -66,7 +66,7 @@ jobs:
         shell: bash
           # The cookiecutter-temp/ folder contains a single folder which is the
           # generated project by cookiecutter. We want to move all the project
-        # files into the root directory so we can reinitialize git in the next step
+          # files into the root directory so we can reinitialize git in the next step
         run: |
           rsync -r ./cookiecutter-temp/*/ . && \
           rm -rf ./cookiecutter-temp/
@@ -75,7 +75,7 @@ jobs:
         shell: bash
           # Reinitialize git after scaffolding this repository.
           # We use `git checkout --orphan` to create a branch in a git init-like state.
-        # By force pushing this as `main` we end up with a new clean git history.
+          # By force pushing this as `main` we end up with a new clean git history.
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com" && \
           git config --global user.name "github-actions[bot]" && \

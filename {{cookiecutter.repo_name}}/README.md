@@ -2,8 +2,9 @@
 
 > *{{cookiecutter.project}}*: {{cookiecutter.description}}
 
-Package repository for {{cookiecutter.project}}: {{cookiecutter.tagline}}. Built with [PyTorch](https://pytorch.org/),
-using sane quality defaults (`black`, `ruff`, `pre-commit`).
+Package repository for {{cookiecutter.project}}: {{cookiecutter.tagline}}.
+
+Built with [PyTorch](https://pytorch.org/), using sane quality defaults (`black`, `ruff`, `pre-commit`).
 
 ---
 
@@ -30,7 +31,8 @@ Project-specific usage notes...
 
 ## Contributing
 
-Before committing to the repository, *make sure to set up your dev environment and pre-commit (`pre-commit install`)!*
+Before committing to the repository, *make sure to set up your dev environment!*
+
 Here are the basic development environment setup guidelines:
 
 + Fork/clone the repository, performing an editable installation. Make sure to install with the development dependencies
