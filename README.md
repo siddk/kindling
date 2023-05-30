@@ -18,6 +18,11 @@ The preferred setup is via Github Templates (Green Button above --> "Use as Temp
 [Stefan Buck's instructions](https://stefanbuck.com/blog/repository-templates-meets-github-actions)). Manually edit the
 `cookiecutter.json` file (in browser!), then commit, and let Github Actions take care of the rest.
 
+*Note*: Prior to editing the `cookiecutter.json` file, navigate to the newly created repository's "Secrets" page and add
+a token `REPO_SETUP_TOKEN` (following
+[Github's Personal Access Token rules](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)).
+This will automatically get removed once the repository is properly set up.
+
 ---
 
 You can also load this repository via the default `cookiecutter` tool:
